@@ -161,7 +161,7 @@ class Superpixels(Augmenter):
                         new_height, new_width = int(image.shape[0] * resize_factor), int(image.shape[1] * resize_factor)
                         image = ia.imresize_single_image(image, (new_height, new_width), interpolation=self.interpolation)
 
-                #image_sp = np.random.randint(0, 255, size=image.shape).astype(np.uint8)
+                #image_sp = np.random.randint(0, 255, size=image.shape).astype(images.dtype)
                 image_sp = np.copy(image)
                 #time_start = time.time()
                 segments = segmentation.slic(image, n_segments=n_segments_samples[i], compactness=10)

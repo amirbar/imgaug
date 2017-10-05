@@ -349,9 +349,9 @@ class ChangeColorspace(Augmenter):
 
                 # this will break colorspaces that have values outside 0-255 or 0.0-1.0
                 if ia.is_integer_array(img_to_cs):
-                    img_to_cs = np.clip(img_to_cs, 0, 255).astype(np.uint8)
+                    img_to_cs = np.clip(img_to_cs, 0, 255).astype(images.dtype)
                 else:
-                    img_to_cs = np.clip(img_to_cs * 255, 0, 255).astype(np.uint8)
+                    img_to_cs = np.clip(img_to_cs * 255, 0, 255).astype(images.dtype)
 
                 # for grayscale: covnert from (H, W) to (H, W, 3)
                 if len(img_to_cs.shape) == 2:
@@ -363,7 +363,7 @@ class ChangeColorspace(Augmenter):
                 elif alpha <= self.eps:
                     result[i] = image
                 else:
-                    result[i] = (alpha * img_to_cs + (1 - alpha) * image).astype(np.uint8)
+                    result[i] = (alpha * img_to_cs + (1 - alpha) * image).astype(images.dtype)
 
         return images
 

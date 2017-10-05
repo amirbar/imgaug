@@ -133,13 +133,13 @@ class Add(Augmenter):
                     assert -255 <= sample <= 255
                     image[..., c] += sample
                 np.clip(image, 0, 255, out=image)
-                result[i] = image.astype(np.uint8)
+                result[i] = image.astype(images.dtype)
             else:
                 sample = self.value.draw_sample(random_state=rs_image)
                 assert -255 <= sample <= 255
                 image += sample
                 np.clip(image, 0, 255, out=image)
-                result[i] = image.astype(np.uint8)
+                result[i] = image.astype(images.dtype)
         return result
 
     def _augment_keypoints(self, keypoints_on_images, random_state, parents, hooks):
@@ -250,7 +250,7 @@ class AddElementwise(Augmenter):
                 samples = np.tile(samples, (1, 1, nb_channels))
             after_add = image + samples
             np.clip(after_add, 0, 255, out=after_add)
-            result[i] = after_add.astype(np.uint8)
+            result[i] = after_add.astype(images.dtype)
         return result
 
     def _augment_keypoints(self, keypoints_on_images, random_state, parents, hooks):
@@ -438,13 +438,13 @@ class Multiply(Augmenter):
                     assert sample >= 0
                     image[..., c] *= sample
                 np.clip(image, 0, 255, out=image)
-                result[i] = image.astype(np.uint8)
+                result[i] = image.astype(images.dtype)
             else:
                 sample = self.mul.draw_sample(random_state=rs_image)
                 assert sample >= 0
                 image *= sample
                 np.clip(image, 0, 255, out=image)
-                result[i] = image.astype(np.uint8)
+                result[i] = image.astype(images.dtype)
         return result
 
     def _augment_keypoints(self, keypoints_on_images, random_state, parents, hooks):
@@ -553,7 +553,7 @@ class MultiplyElementwise(Augmenter):
                 samples = np.tile(samples, (1, 1, nb_channels))
             after_multiply = image * samples
             np.clip(after_multiply, 0, 255, out=after_multiply)
-            result[i] = after_multiply.astype(np.uint8)
+            result[i] = after_multiply.astype(images.dtype)
         return result
 
     def _augment_keypoints(self, keypoints_on_images, random_state, parents, hooks):
@@ -881,7 +881,7 @@ class ReplaceElementwise(Augmenter):
             mask_thresh = mask_samples > 0.5
             image_repl = image * (~mask_thresh) + replacement_samples * mask_thresh
             np.clip(image_repl, 0, 255, out=image_repl)
-            result[i] = image_repl.astype(np.uint8)
+            result[i] = image_repl.astype(images.dtype)
         return result
 
     def _augment_keypoints(self, keypoints_on_images, random_state, parents, hooks):
@@ -1502,7 +1502,7 @@ class Invert(Augmenter):
                         distance_from_min = np.abs(image_c - self.min_value) # d=abs(v-m)
                         image[..., c] = -distance_from_min + self.max_value # v'=M-d
                 np.clip(image, 0, 255, out=image)
-                result[i] = image.astype(np.uint8)
+                result[i] = image.astype(images.dtype)
             else:
                 p_sample = self.p.draw_sample(random_state=rs_image)
                 assert 0 <= p_sample <= 1.0
@@ -1510,7 +1510,7 @@ class Invert(Augmenter):
                     distance_from_min = np.abs(image - self.min_value) # d=abs(v-m)
                     image = -distance_from_min + self.max_value
                     np.clip(image, 0, 255, out=image)
-                    result[i] = image.astype(np.uint8)
+                    result[i] = image.astype(images.dtype)
         return result
 
     def _augment_keypoints(self, keypoints_on_images, random_state, parents, hooks):
@@ -1606,7 +1606,7 @@ class ContrastNormalization(Augmenter):
                 alpha = self.alpha.draw_sample(random_state=rs_image)
                 image = alpha * (image - 128) + 128
             np.clip(image, 0, 255, out=image)
-            result[i] = image.astype(np.uint8)
+            result[i] = image.astype(images.dtype)
         return result
 
     def _augment_keypoints(self, keypoints_on_images, random_state, parents, hooks):

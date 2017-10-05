@@ -139,7 +139,7 @@ class Convolve(Augmenter):
                 if matrices[channel] is not None:
                     # ndimage.convolve caused problems here
                     result[i][..., channel] = cv2.filter2D(result[i][..., channel], -1, matrices[channel])
-            result[i] = np.clip(result[i], 0, 255).astype(np.uint8)
+            result[i] = np.clip(result[i], 0, 255).astype(images.dtype)
         return result
 
     def _augment_keypoints(self, keypoints_on_images, random_state, parents, hooks):
