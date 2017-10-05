@@ -647,7 +647,7 @@ class CropAndPad(Augmenter):
 
         if not isinstance(images, list):
             if self.keep_size:
-                result = np.array(result, dtype=np.uint8)
+                result = np.array(result, dtype=images.dtype)
 
         return result
 
