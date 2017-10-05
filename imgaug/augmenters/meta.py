@@ -1912,7 +1912,7 @@ class Sometimes(Augmenter):
             # if input was a list, keep the output as a list too,
             # otherwise it was a numpy array, so make the output a numpy array too
             if not isinstance(images, list):
-                result = np.array(result, dtype=np.uint8)
+                result = np.array(result, dtype=images.dtype)
 
         return result
 
