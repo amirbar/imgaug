@@ -244,7 +244,7 @@ class Scale(Augmenter):
         if not isinstance(images, list):
             all_same_size = (len(set([image.shape for image in result])) == 1)
             if all_same_size:
-                result = np.array(result, dtype=np.uint8)
+                result = np.array(result, dtype=images.dtype)
 
         return result
 
