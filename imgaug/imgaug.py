@@ -513,7 +513,7 @@ def imresize_many_images(images, sizes=None, interpolation=None):
     else:
         raise Exception("Invalid interpolation order")
 
-    result = np.zeros((nb_images, height, width, nb_channels), dtype=np.uint8)
+    result = np.zeros((nb_images, height, width, nb_channels), dtype=images.dtype)
     for img_idx in sm.xrange(nb_images):
         result_img = cv2.resize(images[img_idx], (width, height), interpolation=ip)
         if len(result_img.shape) == 2:
